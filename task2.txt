@@ -1,0 +1,140 @@
+marina@marina-HP-Linux:~$ pwd
+/home/marina
+marina@marina-HP-Linux:~$ mkdir students
+marina@marina-HP-Linux:~$ mkdir mentors
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   usr             Изображения
+ mentors                                Видео           Музыка
+ PycharmProjects                        Документы       Общедоступные
+ snap                                   Загрузки       'Рабочий стол'
+ students                               ЗагрузкиПроба   Шаблоны
+marina@marina-HP-Linux:~$ cd students
+marina@marina-HP-Linux:~/students$ cat > students_list.txt
+^C
+marina@marina-HP-Linux:~/students$ ls
+students_list.txt
+marina@marina-HP-Linux:~/students$ cd ..
+marina@marina-HP-Linux:~$ cd mentors
+marina@marina-HP-Linux:~/mentors$ ls
+marina@marina-HP-Linux:~/mentors$ echo > mentors_list.txt
+marina@marina-HP-Linux:~/mentors$ ls
+mentors_list.txt
+marina@marina-HP-Linux:~/mentors$ 
+marina@marina-HP-Linux:~/mentors$ nano mentors_list.txt
+marina@marina-HP-Linux:~/mentors$ cd ..
+marina@marina-HP-Linux:~$ cd students
+marina@marina-HP-Linux:~/students$ nano students_list.txt
+marina@marina-HP-Linux:~/students$ cd ..
+marina@marina-HP-Linux:~$ cd mentors
+marina@marina-HP-Linux:~/mentors$ mv mentors_list.txt ../students
+marina@marina-HP-Linux:~/mentors$ ls
+marina@marina-HP-Linux:~/mentors$ cd ..
+marina@marina-HP-Linux:~$ cd students
+marina@marina-HP-Linux:~/students$ ls
+mentors_list.txt  students_list.txt
+marina@marina-HP-Linux:~/students$
+marina@marina-HP-Linux:~/students$ cd ..
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   usr             Изображения
+ mentors                                Видео           Музыка
+ PycharmProjects                        Документы       Общедоступные
+ snap                                   Загрузки       'Рабочий стол'
+ students                               ЗагрузкиПроба   Шаблоны
+marina@marina-HP-Linux:~$
+marina@marina-HP-Linux:~$ rm -r mentors
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   Видео           Музыка
+ PycharmProjects                        Документы       Общедоступные
+ snap                                   Загрузки       'Рабочий стол'
+ students                               ЗагрузкиПроба   Шаблоны
+ usr                                    Изображения
+marina@marina-HP-Linux:~$ 
+marina@marina-HP-Linux:~$ mv students students_and_mentors
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   Видео           Музыка
+ PycharmProjects                        Документы       Общедоступные
+ snap                                   Загрузки       'Рабочий стол'
+ students_and_mentors                   ЗагрузкиПроба   Шаблоны
+ usr                                    Изображения
+marina@marina-HP-Linux:~$ 
+marina@marina-HP-Linux:~$ rm -r students_and_mentors
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   Видео           Изображения     Шаблоны
+ PycharmProjects                        Документы       Музыка
+ snap                                   Загрузки        Общедоступные
+ usr                                    ЗагрузкиПроба  'Рабочий стол'
+marina@marina-HP-Linux:~$ 
+
+########################################## ssh with password
+
+(base) Vyacheslavs-MacBook-Pro:~ slava$ ssh marina@192.168.1.77
+marina@192.168.1.77's password: 
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.13.0-44-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+0 обновлений может быть применено немедленно.
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   Видео           Изображения     Шаблоны
+ PycharmProjects                        Документы       Музыка
+ snap                                   Загрузки        Общедоступные
+ usr                                    ЗагрузкиПроба  'Рабочий стол'
+marina@marina-HP-Linux:~$ 
+
+########################################## ssh without password
+
+(base) Vyacheslavs-MacBook-Pro:.ssh slava$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/slava/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/slava/.ssh/id_rsa.
+Your public key has been saved in /Users/slava/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:wUdNiU541jiERrO+X7PVVn7djQeHjHSA2JEYtmJSsD8 slava@Vyacheslavs-MacBook-Pro.local
+The key's randomart image is:
++---[RSA 3072]----+
+|    ....=O+Xo.   |
+|     o o*=@ +.   |
+|    o o.==... .  |
+|     + o o.. + . |
+|      E S   . + o|
+|       . .     *=|
+|        .   o o X|
+|         . . + o.|
+|          . .    |
++----[SHA256]-----+
+(base) Vyacheslavs-MacBook-Pro:.ssh slava$ cat ~/.ssh/id_rsa.pub | ssh marina@192.168.1.77 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+marina@192.168.1.77's password: 
+(base) Vyacheslavs-MacBook-Pro:.ssh slava$
+(base) Vyacheslavs-MacBook-Pro:.ssh slava$ ssh marina@192.168.1.77
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.13.0-44-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+0 обновлений может быть применено немедленно.
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+Last login: Wed Jun  1 12:36:49 2022 from 192.168.1.66
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   Видео           Изображения     Шаблоны
+ PycharmProjects                        Документы       Музыка
+ snap                                   Загрузки        Общедоступные
+ usr                                    ЗагрузкиПроба  'Рабочий стол'
+marina@marina-HP-Linux:~$ exit
+выход
+Connection to 192.168.1.77 closed.
