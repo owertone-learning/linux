@@ -1,0 +1,192 @@
+marina@marina-HP-Linux:~$ echo hello world > file1
+marina@marina-HP-Linux:~$ ls
+file1                                  snap    Документы       Изображения    'Рабочий стол'
+ GitHubDesktop-linux-2.9.3-linux3.deb   usr     Загрузки        Музыка          Шаблоны
+ PycharmProjects                        Видео   ЗагрузкиПроба   Общедоступные
+file1                                  snap    Документы       Изображения    'Рабочий стол'
+ GitHubDesktop-linux-2.9.3-linux3.deb   usr     Загрузки        Музыка          Шаблоны
+ PycharmProjects                        Видео   ЗагрузкиПроба   Общедоступные
+
+marina@marina-HP-Linux:~$ cp file1 file2
+marina@marina-HP-Linux:~$ ls
+ file1                                  PycharmProjects   Видео       ЗагрузкиПроба   Общедоступные
+ file2                                  snap              Документы   Изображения    'Рабочий стол'
+ GitHubDesktop-linux-2.9.3-linux3.deb   usr               Загрузки    Музыка          Шаблоны
+
+marina@marina-HP-Linux:~$ ln -s file1 file3
+marina@marina-HP-Linux:~$ ln file1 file4
+marina@marina-HP-Linux:~$ ls
+ file1   file4                                  snap    Документы       Изображения    'Рабочий стол'
+ file2   GitHubDesktop-linux-2.9.3-linux3.deb   usr     Загрузки        Музыка          Шаблоны
+ file3   PycharmProjects                        Видео   ЗагрузкиПроба   Общедоступные
+marina@marina-HP-Linux:~$
+
+marina@marina-HP-Linux:~$ ls -i
+17066883  file1                                 17039696  snap           17039433  Изображения
+17066786  file2                                 17172181  usr            17039432  Музыка
+17040841  file3                                 17039434  Видео          17039430  Общедоступные
+17066883  file4
+
+marina@marina-HP-Linux:~$ rm file1
+marina@marina-HP-Linux:~$ ls
+ file2   GitHubDesktop-linux-2.9.3-linux3.deb   usr         Загрузки        Музыка          Шаблоны
+ file3   PycharmProjects                        Видео       ЗагрузкиПроба   Общедоступные
+ file4   snap                                   Документы   Изображения    'Рабочий стол'
+marina@marina-HP-Linux:~$
+marina@marina-HP-Linux:~$ cat file2
+hello world
+marina@marina-HP-Linux:~$ cat file3
+cat: file3: Нет такого файла или каталога
+marina@marina-HP-Linux:~$ cat file4
+hello world
+marina@marina-HP-Linux:~$ 
+
+marina@marina-HP-Linux:~$ mv file2 f2
+marina@marina-HP-Linux:~$ mv file3 f3
+marina@marina-HP-Linux:~$ mv file4 f4
+marina@marina-HP-Linux:~$ ls
+ f2   GitHubDesktop-linux-2.9.3-linux3.deb   students   Документы       Изображения    'Рабочий стол'
+ f3   PycharmProjects                        usr        Загрузки        Музыка          Шаблоны
+ f4   snap                                   Видео      ЗагрузкиПроба   Общедоступные
+marina@marina-HP-Linux:~$ 
+
+marina@marina-HP-Linux:~$ ln -s f2 newf
+marina@marina-HP-Linux:~$ ls
+ f2   GitHubDesktop-linux-2.9.3-linux3.deb   snap       Видео       ЗагрузкиПроба   Общедоступные
+ f3   newf                                   students   Документы   Изображения    'Рабочий стол'
+ f4   PycharmProjects                        usr        Загрузки    Музыка          Шаблоны
+marina@marina-HP-Linux:~$ 
+
+marina@marina-HP-Linux:~$ mv f2 students
+marina@marina-HP-Linux:~$ mv f3 students
+marina@marina-HP-Linux:~$ mv f4 students
+marina@marina-HP-Linux:~$ mv newf students
+marina@marina-HP-Linux:~$ ls
+ GitHubDesktop-linux-2.9.3-linux3.deb   snap       usr     Документы   ЗагрузкиПроба   Музыка         'Рабочий стол'
+ PycharmProjects                        students   Видео   Загрузки    Изображения     Общедоступные   Шаблоны
+marina@marina-HP-Linux:~$ cd students
+marina@marina-HP-Linux:~/students$ ls
+f2  f3  f4  file1  newf
+
+marina@marina-HP-Linux:~/students$ echo hi>first
+marina@marina-HP-Linux:~/students$ ls
+first
+marina@marina-HP-Linux:~/students$ echo hello>second
+marina@marina-HP-Linux:~/students$ ls -l
+итого 8
+-rw-rw-r-- 1 marina marina 3 июн  2 18:24 first
+-rw-rw-r-- 1 marina marina 6 июн  2 18:25 second
+marina@marina-HP-Linux:~/students$ 
+
+marina@marina-HP-Linux:~/students$ chmod ug=rw,o=r first
+marina@marina-HP-Linux:~/students$ ls -l
+итого 8
+-rw-rw-r-- 1 marina marina 3 июн  2 18:24 first
+-rw-rw-r-- 1 marina marina 6 июн  2 18:25 second
+
+marina@marina-HP-Linux:~/students$ chmod ugo-rw second
+marina@marina-HP-Linux:~/students$ ls -l
+итого 8
+-rw-rw-r-- 1 marina marina 3 июн  2 18:24 first
+---------- 1 marina marina 6 июн  2 18:25 second
+marina@marina-HP-Linux:~/students$ chmod u=rw second
+marina@marina-HP-Linux:~/students$ ls -l
+итого 8
+-rw-rw-r-- 1 marina marina 3 июн  2 18:24 first
+-rw------- 1 marina marina 6 июн  2 18:25 second
+marina@marina-HP-Linux:~/students$
+
+##### 4
+
+marina@marina-HP-Linux:~/students$ sudo useradd -m -d /home/user2 -s /bin/bash user1
+[sudo] пароль для marina: 
+marina@marina-HP-Linux:~/students$ sudo useradd -m -d /home/user1 -s /bin/bash user2
+marina@marina-HP-Linux:~/students$ sudo useradd -m -d /home/user3 -s /bin/bash user3
+marina@marina-HP-Linux:~/students$ sudo passwd user1
+Новый пароль : 
+Повторите ввод нового пароля : 
+passwd: пароль успешно обновлён
+marina@marina-HP-Linux:~/students$ sudo passwd user2
+Новый пароль : 
+Повторите ввод нового пароля : 
+passwd: пароль успешно обновлён
+marina@marina-HP-Linux:~/students$ sudo passwd user3
+Новый пароль : 
+Повторите ввод нового пароля : 
+passwd: пароль успешно обновлён
+marina@marina-HP-Linux:~/students$ 
+
+marina@marina-HP-Linux:~/students$ sudo groupadd developer
+marina@marina-HP-Linux:~/students$ sudo usermod -G developer user1
+marina@marina-HP-Linux:~/students$ sudo usermod -G developer user2
+marina@marina-HP-Linux:~/students$ sudo usermod -G developer user3
+marina@marina-HP-Linux:~/students$ more /etc/group | grep developer
+developer:x:1004:user1,user2,user3
+
+marina@marina-HP-Linux:~/students$ mkdir devel
+marina@marina-HP-Linux:~/students$ ls
+devel  first  second
+
+marina@marina-HP-Linux:~/students$ sudo chown :developer devel
+marina@marina-HP-Linux:~/students$ ll
+итого 20
+drwxrwxr-x  3 marina marina    4096 июн  2 18:39 ./
+drwxr-xr-x 28 marina marina    4096 июн  2 16:08 ../
+drwxrwxr-x  2 marina developer 4096 июн  2 18:39 devel/
+-rw-rw-r--  1 marina marina       3 июн  2 18:24 first
+-rw-------  1 marina marina       6 июн  2 18:25 second
+
+drwxrwxr-x  4 marina marina    4096 июн  2 18:42 ./
+drwxr-xr-x 28 marina marina    4096 июн  2 16:08 ../
+drwxrwxr-x  2 marina developer 4096 июн  2 18:39 devel/
+drwxrwxr-x  2 marina marina    4096 июн  2 18:42 files/
+-rw-rw-r--  1 marina marina       3 июн  2 18:24 first
+-rw-------  1 marina marina       6 июн  2 18:25 second
+
+marina@marina-HP-Linux:~/students$ chmod +t files
+marina@marina-HP-Linux:~/students$ ll
+итого 24
+drwxrwxr-x  4 marina marina    4096 июн  2 18:42 ./
+drwxr-xr-x 28 marina marina    4096 июн  2 16:08 ../
+drwxrwxr-x  2 marina developer 4096 июн  2 18:39 devel/
+drwxrwxr-t  2 marina marina    4096 июн  2 18:42 files/
+-rw-rw-r--  1 marina marina       3 июн  2 18:24 first
+-rw-------  1 marina marina       6 июн  2 18:25 second
+marina@marina-HP-Linux:~/students$ 
+
+
+
+##### 6
+
+marina@marina-HP-Linux:~/students$ cd devel
+marina@marina-HP-Linux:~/students/devel$ echo 1>f1.txt
+marina@marina-HP-Linux:~/students/devel$ echo hello > f2.txt
+marina@marina-HP-Linux:~/students/devel$ echo 3>f3.txt
+marina@marina-HP-Linux:~/students/devel$
+
+arina@marina-HP-Linux:~/students$ chmod ugo-rw devel
+marina@marina-HP-Linux:~/students$ ls -l
+итого 16
+d--x--x--x 2 marina developer 4096 июн  2 18:49 devel
+drwxrwxr-t 2 marina marina    4096 июн  2 18:42 files
+-rw-rw-r-- 1 marina marina       3 июн  2 18:24 first
+-rw------- 1 marina marina       6 июн  2 18:25 second
+
+marina@marina-HP-Linux:~/students$ chmod ugo+w devel
+marina@marina-HP-Linux:~/students$ ls -l
+итого 16
+d-wx-wx-wx 2 marina developer 4096 июн  2 18:49 devel
+drwxrwxr-t 2 marina marina    4096 июн  2 18:42 files
+-rw-rw-r-- 1 marina marina       3 июн  2 18:24 first
+-rw------- 1 marina marina       6 июн  2 18:25 second
+
+marina@marina-HP-Linux:~/students$ ls -l devel
+ls: невозможно открыть каталог 'devel': Отказано в доступе
+
+marina@marina-HP-Linux:~/students$ cat devel/f2.txt
+hello
+
+
+
+ 
+
