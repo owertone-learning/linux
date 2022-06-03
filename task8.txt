@@ -1,0 +1,122 @@
+####################### 1. Переустановить операционную систему (по желанию, для дополнительной практики)
+
+извините, рабочая машинка за которой жена пилит удаленно свой 1С, а у меня куча скрипов и файлов)
+
+
+####################### 1. 2. Подключить репозиторий Docker.
+
+marina@marina-HP-Linux:~/students$ sudo apt install docker -y
+Чтение списков пакетов… Готово
+Построение дерева зависимостей       
+Чтение информации о состоянии… Готово
+Следующие пакеты устанавливались автоматически и больше не требуются:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libfprint-2-tod1 libfwupdplugin1 libldns2 libllvm10 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libnss3-tools libunbound8 nginx-common nginx-core shim
+Для их удаления используйте «sudo apt autoremove».
+Будут установлены следующие дополнительные пакеты:
+  wmdocker
+Следующие НОВЫЕ пакеты будут установлены:
+  docker wmdocker
+Обновлено 0 пакетов, установлено 2 новых пакетов, для удаления отмечено 0 пакетов, и 1 пакетов не обновлено.
+Необходимо скачать 14,3 kB архивов.
+После данной операции объём занятого дискового пространства возрастёт на 58,4 kB.
+Пол:1 http://ru.archive.ubuntu.com/ubuntu focal/universe amd64 wmdocker amd64 1.5-2 [13,0 kB]
+Пол:2 http://ru.archive.ubuntu.com/ubuntu focal/universe amd64 docker all 1.5-2 [1 316 B]
+Получено 14,3 kB за 0с (193 kB/s)      
+Выбор ранее не выбранного пакета wmdocker.
+(Чтение базы данных … на данный момент установлено 210019 файлов и каталогов.)
+Подготовка к распаковке …/wmdocker_1.5-2_amd64.deb …
+Распаковывается wmdocker (1.5-2) …
+Выбор ранее не выбранного пакета docker.
+Подготовка к распаковке …/archives/docker_1.5-2_all.deb …
+Распаковывается docker (1.5-2) …
+Настраивается пакет wmdocker (1.5-2) …
+Настраивается пакет docker (1.5-2) …
+Обрабатываются триггеры для man-db (2.9.1-1) …
+marina@marina-HP-Linux:~/students$ 
+
+marina@marina-HP-Linux:~/students$ sudo apt install docker.io -y
+Чтение списков пакетов… Готово
+Построение дерева зависимостей       
+Чтение информации о состоянии… Готово
+...
+...
+...
+Настраивается пакет docker.io (20.10.12-0ubuntu2~20.04.1) …
+Добавляется группа «docker» (GID 134) ...
+Готово.
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+Настраивается пакет git (1:2.25.1-1ubuntu3.4) …
+Обрабатываются триггеры для man-db (2.9.1-1) …
+Обрабатываются триггеры для systemd (245.4-4ubuntu3.17) …
+
+marina@marina-HP-Linux:~/students$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2022-06-03 16:43:52 MSK; 1min 14s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 29165 (dockerd)
+      Tasks: 13
+     Memory: 30.5M
+     CGroup: /system.slice/docker.service
+             └─29165 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.192838640+03:00" level=warning msg="Your kernel does not support CPU realtime s>
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.192856844+03:00" level=warning msg="Your kernel does not support cgroup blkio w>
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.192861699+03:00" level=warning msg="Your kernel does not support cgroup blkio w>
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.192972416+03:00" level=info msg="Loading containers: start."
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.245211961+03:00" level=info msg="Default bridge (docker0) is assigned with an I>
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.278373439+03:00" level=info msg="Loading containers: done."
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.298078059+03:00" level=info msg="Docker daemon" commit="20.10.12-0ubuntu2~20.04>
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.298168349+03:00" level=info msg="Daemon has completed initialization"
+июн 03 16:43:52 marina-HP-Linux systemd[1]: Started Docker Application Container Engine.
+июн 03 16:43:52 marina-HP-Linux dockerd[29165]: time="2022-06-03T16:43:52.320291336+03:00" level=info msg="API listen on /run/docker.sock"
+
+
+
+####################### 1. 3. Запустить контейнер с Ubuntu.
+
+
+marina@marina-HP-Linux:~/students$ sudo docker search ubuntu
+NAME                             DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+ubuntu                           Ubuntu is a Debian-based Linux operating sys…   14361     [OK]       
+websphere-liberty                WebSphere Liberty multi-architecture images …   284       [OK]       
+ubuntu-upstart                   DEPRECATED, as is Upstart (find other proces…   112       [OK]       
+neurodebian                      NeuroDebian provides neuroscience research s…   91        [OK]       
+open-liberty                     Open Liberty multi-architecture images based…   53        [OK]       
+ubuntu/nginx                     Nginx, a high-performance reverse proxy & we…   50                   
+ubuntu-debootstrap               DEPRECATED; use "ubuntu" instead                46        [OK]       
+ubuntu/mysql                     MySQL open source fast, stable, multi-thread…   33                   
+ubuntu/apache2                   Apache, a secure & extensible open-source HT…   32                   
+ubuntu/prometheus                Prometheus is a systems and service monitori…   27                   
+kasmweb/ubuntu-bionic-desktop    Ubuntu productivity desktop for Kasm Workspa…   26                   
+ubuntu/squid                     Squid is a caching proxy for the Web. Long-t…   24                   
+ubuntu/bind9                     BIND 9 is a very flexible, full-featured DNS…   21                   
+ubuntu/postgres                  PostgreSQL is an open source object-relation…   17                   
+ubuntu/redis                     Redis, an open source key-value store. Long-…   10                   
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   6                    
+ubuntu/grafana                   Grafana, a feature rich metrics dashboard & …   6                    
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5                    
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4                    
+ubuntu/kafka                     Apache Kafka, a distributed event streaming …   4                    
+ubuntu/zookeeper                 ZooKeeper maintains configuration informatio…   3                    
+ubuntu/cortex                    Cortex provides storage for Prometheus. Long…   3                    
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2                    
+bitnami/ubuntu-base-buildpack    Ubuntu base compilation image                   1                    [OK]
+ubuntu/loki                      Grafana Loki, a log aggregation system like …   0                    
+marina@marina-HP-Linux:~/students$ 
+
+marina@marina-HP-Linux:~/students$ sudo docker pull ubuntu
+Using default tag: latest
+latest: Pulling from library/ubuntu
+125a6e411906: Pull complete 
+Digest: sha256:26c68657ccce2cb0a31b330cb0be2b5e108d467f641c62e13ab40cbec258c68d
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+marina@marina-HP-Linux:~/students$ 
+
+
+
+####################### 1. 4. * Используя Dockerfile, собрать связку nginx + PHP-FPM в одном контейнере.
