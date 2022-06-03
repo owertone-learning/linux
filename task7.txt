@@ -1,0 +1,82 @@
+#1. Подключить репозиторий с nginx любым удобным способом, установить
+nginx и потом удалить nginx, используя утилиту dpkg.
+
+
+marina@marina-HP-Linux:~/students$ dpkg -l | grep  nginx
+
+marina@marina-HP-Linux:~/students$ sudo apt update
+marina@marina-HP-Linux:~/students$ sudo apt install nginx
+
+marina@marina-HP-Linux:~/students$ dpkg -l
+ii  nginx                                      1.18.0-0ubuntu1.3               >
+ii  nginx-common                               1.18.0-0ubuntu1.3               >
+ii  nginx-core                                 1.18.0-0ubuntu1.3
+
+marina@marina-HP-Linux:~/students$ dpkg -l | grep  nginx
+ii  libnginx-mod-http-image-filter             1.18.0-0ubuntu1.3                   amd64        HTTP image filter module for Nginx
+ii  libnginx-mod-http-xslt-filter              1.18.0-0ubuntu1.3                   amd64        XSLT Transformation module for Nginx
+ii  libnginx-mod-mail                          1.18.0-0ubuntu1.3                   amd64        Mail module for Nginx
+ii  libnginx-mod-stream                        1.18.0-0ubuntu1.3                   amd64        Stream module for Nginx
+ii  nginx                                      1.18.0-0ubuntu1.3                   all          small, powerful, scalable web/proxy server
+ii  nginx-common                               1.18.0-0ubuntu1.3                   all          small, powerful, scalable web/proxy server - common files
+ii  nginx-core                                 1.18.0-0ubuntu1.3                   amd64        nginx web/proxy server (standard version)
+
+marina@marina-HP-Linux:~/students$ sudo dpkg -P nginx 
+(Чтение базы данных … на данный момент установлено 210015 файлов и каталогов.)
+Удаляется nginx (1.18.0-0ubuntu1.3) …
+
+Желаемый=неизвестно[u]/установить[i]/удалить[r]/вычистить[p]/зафиксировать[h]
+| Состояние=не[n]/установлен[i]/настроен[c]/распакован[U]/частично настроен[F]/
+            частично установлен[H]/trig-aWait/Trig-pend
+|/ Ошибка?=(нет)/требуется переустановка[R] (верхний регистр
+в полях состояния и ошибки указывает на ненормальную ситуацию)
+||/ Имя            Версия       Архитектура  Описание
++++-==============-============-============-==================================>
+un  nginx          <нет>        <нет>        (описание недоступно)
+
+
+########### 2. Установить пакет на свой выбор, используя snap.
+
+marina@marina-HP-Linux:~/students$ sudo snap install opera
+opera 87.0.4390.45 от Opera (opera-software✓) установлен
+
+
+########### 3. Настроить iptables: разрешить подключения только на 22-й и 80-й порты.
+
+marina@marina-HP-Linux:~/students$ sudo iptables -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT
+marina@marina-HP-Linux:~/students$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+marina@marina-HP-Linux:~/students$ sudo iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+marina@marina-HP-Linux:~/students$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:ssh
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+marina@marina-HP-Linux:~/students$ 
+
+
+
+########### 4. * Настроить проброс портов локально с порта 80 на порт 8080.
+
+marina@marina-HP-Linux:~/students$ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+
+marina@marina-HP-Linux:~/students$ sudo iptables -t nat -L
+Chain PREROUTING (policy ACCEPT)
+target     prot opt source               destination         
+REDIRECT   tcp  --  anywhere             anywhere             tcp dpt:http redir ports 8080
+
